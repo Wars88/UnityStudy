@@ -14,7 +14,6 @@ public class PlayerInvokeCsharp : MonoBehaviour
     [SerializeField] LayerMask _groundLayer;
     [SerializeField] Transform _leftFoot;
     [SerializeField] Transform _rightFoot;
-    [SerializeField] bool _isGrounded;
     
     private PlayerInput _playerInput;
     private Rigidbody2D _rigid;
@@ -24,6 +23,7 @@ public class PlayerInvokeCsharp : MonoBehaviour
     private InputAction _jumpAction;
 
     private int _facingDirection = 1; // 1 for right, -1 for left
+    private bool _isGrounded;
     private bool _canDoubleJump;
 
     private void Awake()
