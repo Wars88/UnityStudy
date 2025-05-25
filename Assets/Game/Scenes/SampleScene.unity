@@ -164,8 +164,8 @@ GameObject:
   - component: {fileID: 501164680}
   - component: {fileID: 501164679}
   - component: {fileID: 501164678}
-  - component: {fileID: 501164683}
   - component: {fileID: 501164682}
+  - component: {fileID: 501164683}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -244,7 +244,7 @@ Transform:
   m_GameObject: {fileID: 501164677}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.08, y: -0.74, z: 0}
+  m_LocalPosition: {x: 0.82, y: -0.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b82b02e6cda2c4480b3314e40c560b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 4
+  _moveSpeed: 8
   _jumpForce: 14
   _doubleJumpForce: 11
   _groundLayer:
@@ -273,7 +273,15 @@ MonoBehaviour:
     m_Bits: 64
   _leftFoot: {fileID: 336598765}
   _rightFoot: {fileID: 1010622731}
-  _isGrounded: 0
+  _groundCheckDistance: 0.1
+  _wallCheckDistance: 0.7
+  _wallJumpDuration: 0.6
+  _wallJumpForce: {x: 7, y: 14}
+  _wallJumping: 0
+  _knockBackDuration: 0.7
+  _knockBackForce: {x: 5, y: 7}
+  _isKnockBack: 0
+  _canKnockBack: 0
 --- !u!114 &501164683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,7 +1052,7 @@ Transform:
   m_GameObject: {fileID: 1757200995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.04, y: 1.98, z: 0}
+  m_LocalPosition: {x: -5.81, y: 1.93, z: 0}
   m_LocalScale: {x: 6.399985, y: 7.6747, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
