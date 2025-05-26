@@ -28,6 +28,9 @@ public class PlayerInvokeCsharp : MonoBehaviour
     [SerializeField] bool _isKnockBack;
     [SerializeField] bool _canKnockBack;
 
+    [Header("VFX")]
+    [SerializeField] GameObject _vfxPrefab;
+
     private PlayerInput _playerInput;
     private Rigidbody2D _rigid;
     private Animator _animator;
@@ -138,6 +141,12 @@ public class PlayerInvokeCsharp : MonoBehaviour
         StartCoroutine(KnockBackRoutine());
 
         _rigid.velocity = new Vector2(_knockBackForce.x * -_facingDirection, _knockBackForce.y);
+    }
+
+    public void Die()
+    {
+        var vfx = Instantiate(_vfxPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private IEnumerator WallJumpRoutine()
