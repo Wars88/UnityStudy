@@ -135,9 +135,7 @@ public class PlayerInvokeCsharp : MonoBehaviour
     }
 
     public void KnockBack()
-    {
-        _animator.SetTrigger("knockBack");
-
+    { 
         StartCoroutine(KnockBackRoutine());
 
         _rigid.velocity = new Vector2(_knockBackForce.x * -_facingDirection, _knockBackForce.y);
@@ -160,12 +158,14 @@ public class PlayerInvokeCsharp : MonoBehaviour
 
     private IEnumerator KnockBackRoutine()
     {
-        _canKnockBack = false;
         _isKnockBack = true;
+        _animator.SetBool("knockBack", _isKnockBack);
+        _canKnockBack = false;
 
         yield return new WaitForSeconds(_knockBackDuration);
 
         _isKnockBack = false;
+        _animator.SetBool("knockBack", _isKnockBack);
         _canKnockBack = true;
     }
 

@@ -262,8 +262,8 @@ MonoBehaviour:
   _wallJumpDuration: 0.6
   _wallJumpForce: {x: 7, y: 14}
   _wallJumping: 0
-  _knockBackDuration: 0.7
-  _knockBackForce: {x: 5, y: 7}
+  _knockBackDuration: 0.6
+  _knockBackForce: {x: 2, y: 5}
   _isKnockBack: 0
   _canKnockBack: 0
   _vfxPrefab: {fileID: 233633894377953988, guid: cdec34656f1bc5a4d83a3ed23a673993, type: 3}
