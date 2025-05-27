@@ -32,7 +32,7 @@ public class PlayerInvokeCsharp : MonoBehaviour
     [SerializeField] GameObject _vfxPrefab;
 
     private PlayerInput _playerInput;
-    private Rigidbody2D _rigid;
+    public Rigidbody2D Rigid {  get; private set; }
     private Animator _animator;
 
     private InputAction _moveAction;
@@ -47,7 +47,7 @@ public class PlayerInvokeCsharp : MonoBehaviour
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
-        _rigid = GetComponent<Rigidbody2D>();
+         Rigid = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
 
         _moveAction = _playerInput.actions["Move"];
@@ -95,7 +95,7 @@ public class PlayerInvokeCsharp : MonoBehaviour
             return;
 
         float moveX = _moveAction.ReadValue<float>();
-        _rigid.velocity = new Vector2(moveX * _moveSpeed, _rigid.velocity.y);
+        Rigid.velocity = new Vector2(moveX * _moveSpeed, Rigid.velocity.y);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -105,12 +105,12 @@ public class PlayerInvokeCsharp : MonoBehaviour
 
         if (_isGrounded)
         {
-            _rigid.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            Rigid.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             _canDoubleJump = true;
         }
-        else if (_isWallDetected && _rigid.velocity.y < 0)
+        else if (_isWallDetected && Rigid.velocity.y < 0)
         {
-            _rigid.velocity = new Vector2(_wallJumpForce.x * -_facingDirection, _wallJumpForce.y);
+            Rigid.velocity = new Vector2(_wallJumpForce.x * -_facingDirection, _wallJumpForce.y);
             Flip();
             StopAllCoroutines();
             StartCoroutine(WallJumpRoutine());
@@ -119,18 +119,18 @@ public class PlayerInvokeCsharp : MonoBehaviour
         else if (_canDoubleJump)
         {
             _isDoubleJumping = true;
-            _rigid.velocity = new Vector2(_rigid.velocity.x, 0);
-            _rigid.AddForce(Vector2.up * _doubleJumpForce, ForceMode2D.Impulse);
+            Rigid.velocity = new Vector2(Rigid.velocity.x, 0);
+            Rigid.AddForce(Vector2.up * _doubleJumpForce, ForceMode2D.Impulse);
             _canDoubleJump = false;
         }
     }
 
     private void WallSlide()
     {
-        if (_isWallDetected && _rigid.velocity.y < 0)
+        if (_isWallDetected && Rigid.velocity.y < 0)
         {
             _isDoubleJumping = false;
-            _rigid.velocity = new Vector2(_rigid.velocity.x, _rigid.velocity.y * 0.5f);
+            Rigid.velocity = new Vector2(Rigid.velocity.x, Rigid.velocity.y * 0.5f);
         }
     }
 
@@ -138,7 +138,7 @@ public class PlayerInvokeCsharp : MonoBehaviour
     { 
         StartCoroutine(KnockBackRoutine());
 
-        _rigid.velocity = new Vector2(_knockBackForce.x * -_facingDirection, _knockBackForce.y);
+        Rigid.velocity = new Vector2(_knockBackForce.x * -_facingDirection, _knockBackForce.y);
     }
 
     public void Die()
@@ -204,8 +204,8 @@ public class PlayerInvokeCsharp : MonoBehaviour
 
     private void HandleAnimation()
     {
-        _animator.SetFloat("velocityX", _rigid.velocity.x);
-        _animator.SetFloat("velocityY", _rigid.velocity.y);
+        _animator.SetFloat("velocityX", Rigid.velocity.x);
+        _animator.SetFloat("velocityY", Rigid.velocity.y);
         _animator.SetBool("isGrounded", _isGrounded);
         _animator.SetBool("isWallDetected", _isWallDetected);
         _animator.SetBool("isDoubleJumping", _isDoubleJumping);
@@ -215,12 +215,12 @@ public class PlayerInvokeCsharp : MonoBehaviour
     {
         if (_wallJumping)
         {
-            if (_rigid.velocity.x > 0)
+            if (Rigid.velocity.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 _facingDirection = 1;
             }
-            else if (_rigid.velocity.x < 0)
+            else if (Rigid.velocity.x < 0)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
                 _facingDirection = -1;
